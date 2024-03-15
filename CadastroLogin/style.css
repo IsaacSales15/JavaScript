@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+}
+form {
+    max-width: 300px;
+    margin: 50px auto;
+}
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+}
+#cadastro {
+    margin-top: 10px;
+}
+#BemVindo {
+    color: #4CAF50;
+}
