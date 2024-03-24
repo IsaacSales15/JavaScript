@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button id="openPopBtn">+</button>
+    </div>
+
+    <div id="pop" class="pop">
+        <div class="pop-content">
+            <span class="close-btn">&times;</span>
+            <input type="text" id="itemName" placeholder="Nome do item">
+            <input type="text" id="itemQuantity" placeholder="Quantidade"><br>
+            <button type="button" id="addItemBtn" value="add">Adicionar</button>
+        </div>
+    </div>
+
+    <div id="itemList" class="item-list"></div>
+
+    <script src="pop.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
