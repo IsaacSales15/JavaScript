@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const itemQuantityInput = document.getElementById('itemQuantity');
     const itemListDiv = document.getElementById('itemList');
 
-    // Métodos para os botões
+ // Métodos para os botões
     buttons.forEach(button => {
         button.addEventListener('click', function () {
             let valueButt = this.value;
@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
- 
-    // Recuperar os itens do sessionStorage ao carregar a página
+
+// Recuperar os itens do sessionStorage ao carregar a página
     const storedItems = JSON.parse(sessionStorage.getItem('items')) || [];
     for (const item of storedItems) {
         addItemToList(item.name, item.quantity);
     }
 
-    // Registra o item no sessionStorage e na lista na tela
+// Registra o item no sessionStorage e na lista na tela
     function registerItem() {
         const itemName = itemNameInput.value.trim();
         const itemQuantity = itemQuantityInput.value.trim();
@@ -47,55 +47,68 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Item adicionado com sucesso!');
     }
 
-    // Adiciona o item à lista na tela
-    function addItemToList(name, quantity) {
-        const newItemDiv = document.createElement('div');
-        newItemDiv.classList.add('item');
+// Adiciona o item à lista na tela
+function addItemToList(name, quantity) {
+    const newItemDiv = document.createElement('div');
+    newItemDiv.classList.add('item');
 
-        const itemInfo = document.createElement('p');
-        itemInfo.textContent = `Item: ${name}, Quantidade: ${quantity}`;
-        newItemDiv.appendChild(itemInfo);
+    const itemInfo = document.createElement('p');
+    itemInfo.textContent = `Item: ${name}, Quantidade: ${quantity}`;
+    newItemDiv.appendChild(itemInfo);
 
-        const btnContainer = document.createElement('div');
-        btnContainer.classList.add('btn-container');
+    const btnContainer = document.createElement('div');
+    btnContainer.classList.add('btn-container');
 
-        const editBtn = document.createElement('button');
-        editBtn.textContent = '+';
+// Botão de soma
+    const editBtn = document.createElement('button');
+    editBtn.textContent = '+';
+    editBtn.addEventListener('click', function() {
+        let quantityMatch = itemInfo.textContent.match(/Quantidade: (\d+)/);
+        let currentQuantity = quantityMatch ? parseInt(quantityMatch[1]) : 0;
+        let newValue = currentQuantity + 1;
 
-        editBtn.addEventListener('click', function() {
-// Vou pensar como vou fazer isso ainda
-        });
+        itemInfo.textContent = `Item: ${name}, Quantidade: ${newValue}`;
 
-        btnContainer.appendChild(editBtn);
+ // Atualizar o valor no sessionStorage
+        sessionStorage.setItem('counterValue', newValue);
+    });
+    btnContainer.appendChild(editBtn);
 
-// Subtrai um número da quantidade do armazenamento
-const subtractBtn = document.createElement('button');
-subtractBtn.textContent = '-';
-subtractBtn.dataset.itemName = itemName;
+// Botão de subtração
+    const subtractBtn = document.createElement('button');
+    subtractBtn.textContent = '-';
+    subtractBtn.addEventListener('click', function() {
+        let quantityMatch = itemInfo.textContent.match(/Quantidade: (\d+)/);
+        let currentQuantity = quantityMatch ? parseInt(quantityMatch[1]) : 0;
+        let newValue = Math.max(0, currentQuantity - 1);
 
-subtractBtn.addEventListener('click', function () {
-    // Ainda vou quebrar a cabeça com isso
-});
-        btnContainer.appendChild(subtractBtn);
+        itemInfo.textContent = `Item: ${name}, Quantidade: ${newValue}`;
 
-        newItemDiv.appendChild(btnContainer);
+// Atualizar o valor no sessionStorage
+        sessionStorage.setItem('counterValue', newValue);
+    });
+    btnContainer.appendChild(subtractBtn);
 
-        itemListDiv.appendChild(newItemDiv);
-    }
+    newItemDiv.appendChild(btnContainer);
+    itemListDiv.appendChild(newItemDiv);
 
-// Armazena o item no sessionStorage (versão mais "simples" do localStorage)
+// Atualizar o valor no sessionStorage após adicionar o item à lista
+    sessionStorage.setItem('counterValue', quantity);
+}
+
+// Armazena o item no sessionStorage 
     function storeItem(item) {
         const storedItems = JSON.parse(sessionStorage.getItem('items')) || [];
         storedItems.push(item);
         sessionStorage.setItem('items', JSON.stringify(storedItems));
     }
 
-
-    // Limpa o conteúdo dos campos 
+// Limpa o conteúdo dos campos 
     function clearInputs() {
         itemNameInput.value = '';
         itemQuantityInput.value = '';
     }
 });
 
+// Obs: Troquei o localStorage pelo sessionStorage pra poder ficar criando do monte de itens pra testar
 // Seishinkai ga hitsuyõda to omou 
